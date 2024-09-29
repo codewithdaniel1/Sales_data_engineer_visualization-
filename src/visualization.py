@@ -11,7 +11,7 @@ def visualization_func():
     app = dash.Dash(__name__)
 
     # Create a line chart of sales over time, separated by region
-    fig = px.line(df, x="date", y="sales", color="region", title="Sales Trend by Region")
+    fig = px.line(df, x="date", y="sales", color="region", title="Pink Morsel Sales Trend by Region")
 
     # Layout of the Dash app
     app.layout = html.Div(children=[
