@@ -101,3 +101,40 @@ This project includes a Pytest-based testing suite. To run the tests:
     ```
 
 The tests verify the presence of the header, region picker, and visualizations, as well as ensure that callback functions work as expected.
+
+## Running Tests
+
+To run the test suite for this project, follow these steps:
+
+1. Ensure all dependencies are installed and your virtual environment is activated.
+2. Run the provided `run_test.sh` script to execute the test suite.
+
+### Steps to Run:
+
+1. **Activate the virtual environment** (if it's not activated):
+    ```bash
+    source venv/Scripts/activate  # For Windows
+    ```
+
+2. **Run the test suite**:
+    ```bash
+    ./src/run_test.sh
+    ```
+
+The script will:
+- Activate the virtual environment.
+- Run the test suite using Pytest.
+- Return a success code `0` if all tests pass or `1` otherwise.
+
+### Example Output:
+
+```bash
+=========== test session starts ============
+platform win32 -- Python 3.9.13, pytest-7.1.2, pluggy-1.0.0
+rootdir: C:\Users\danie\OneDrive\Desktop\Quantium\quantium-starter-repo, configfile: pytest.ini
+plugins: anyio-3.5.0, dash-2.18.1
+collected 3 items
+
+test_visualization.py ...                                            [100%]
+
+=================== 3 passed in 5.54s ===================
