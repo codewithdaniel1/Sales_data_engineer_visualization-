@@ -4,10 +4,38 @@ import dash
 from dash import dcc, html
 from dash.dependencies import Input, Output
 
-def visualization_func():
-    # Load the data
-    df = pd.read_csv('daily_sales_data_all.csv')
+# Load the data
+df = pd.read_csv('daily_sales_data_all.csv')
 
+# Define the function that updates the chart (made standalone)
+def update_chart(selected_region):
+    # Filter the data based on the selected region
+    if selected_region == 'all':
+        filtered_df = df
+    else:
+        filtered_df = df[df['region'] == selected_region]
+
+    # Create the line chart
+    fig = px.line(
+        filtered_df, 
+        x="date", 
+        y="sales", 
+        color="region", 
+        title=f"Pink Morsel Sales Trend for {selected_region.capitalize()} Region" if selected_region != 'all' else "Pink Morsel Sales Trend for All Regions"
+    )
+    # Customize the layout of the chart
+    fig.update_layout(
+        title_font_size=24,
+        title_x=0.5,
+        xaxis_title="Date",
+        yaxis_title="Sales ($)",
+        plot_bgcolor='rgba(0,0,0,0)',
+        paper_bgcolor='rgba(0,0,0,0)',
+        font=dict(size=18),
+    )
+    return fig
+
+def visualization_func():
     # Initialize the Dash app
     app = dash.Dash(__name__)
 
@@ -19,6 +47,7 @@ def visualization_func():
         children=[
             html.H1(
                 children='Pink Morsel Sales Data Visualization',
+                id='app-title',  # Added id for the header
                 style={'textAlign': 'center', 'color': '#1f77b4'}
             ),
             html.Div(
@@ -36,12 +65,7 @@ def visualization_func():
                 id='sales-trend-chart'
             ),
         ],
-        style={
-            'width': '80%',
-            'margin': 'auto',
-            'padding': '20px',
-            'fontFamily': 'Arial, sans-serif'
-        }
+        style={'textAlign': 'center', 'color': '#1f77b4'}
     )
 
     # Define the callback to update the chart based on the region selected
@@ -49,33 +73,8 @@ def visualization_func():
         Output('sales-trend-chart', 'figure'),
         [Input('region-filter', 'value')]
     )
-    def update_chart(selected_region):
-        # Filter the data based on the selected region
-        if selected_region == 'all':
-            filtered_df = df
-        else:
-            filtered_df = df[df['region'] == selected_region]
-
-        # Create the line chart
-        fig = px.line(
-            filtered_df, 
-            x="date", 
-            y="sales", 
-            color="region", 
-            title=f"Pink Morsel Sales Trend for {selected_region.capitalize()} Region" if selected_region != 'all' else "Pink Morsel Sales Trend for All Regions"
-        )
-        # Customize the layout of the chart
-        fig.update_layout(
-            title_font_size=24,
-            title_x=0.5,
-            xaxis_title="Date",
-            yaxis_title="Sales ($)",
-            plot_bgcolor='rgba(0,0,0,0)',
-            paper_bgcolor='rgba(0,0,0,0)',
-            font=dict(size=18),
-        )
-
-        return fig
+    def update_chart_callback(selected_region):
+        return update_chart(selected_region)
 
     # Run the app
     app.run_server(debug=True)
