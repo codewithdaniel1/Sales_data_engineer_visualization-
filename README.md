@@ -32,35 +32,11 @@ This project is a data visualization and analysis tool for Pink Morsel sales dat
 
 This tool aims to simplify the process of analyzing and interpreting sales data, making it easy for stakeholders to gain insights into trends and patterns across different regions.
 
-
-## Project Structure
-quantium-starter-repo/
-│
-├── .pytest_cache/
-├── data/
-│   ├── daily_sales_data_0.csv
-│   ├── daily_sales_data_1.csv
-│   ├── daily_sales_data_2.csv
-│
-├── src/
-│   ├── __pycache__/
-│   ├── data_processing.py
-│   ├── main.py
-│   ├── test_visualization.py
-│   └── visualization.py
-│
-├── venv/
-├── .gitignore
-├── daily_sales_data_all.csv
-├── pytest.ini
-└── README.md
-
-
 ## Installation
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/your-username/quantium-starter-repo.git
+    git clone https://github.com/codewithdaniel1/quantium_project.git
     ```
 
 2. Navigate into the project directory:
@@ -110,28 +86,18 @@ quantium-starter-repo/
 To install all dependencies, run:
 ```bash
 pip install -r requirements.txt
+```
 
 
-
-### 5. **Testing**
-Explain how to run the test suite.
-
-### Example:
-```markdown
 ## Testing
 
 This project includes a Pytest-based testing suite. To run the tests:
 
 1. Ensure all dependencies are installed.
 2. Run the following command:
+
     ```bash
     pytest
     ```
 
 The tests verify the presence of the header, region picker, and visualizations, as well as ensure that callback functions work as expected.
-
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
