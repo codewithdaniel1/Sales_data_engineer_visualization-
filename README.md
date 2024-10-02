@@ -41,7 +41,7 @@ This tool aims to simplify the process of analyzing and interpreting sales data,
 
 2. Navigate into the project directory:
     ```bash
-    cd quantium-starter-repo
+    cd quantium_project
     ```
 
 3. Create and activate a virtual environment:
