@@ -1,17 +1,10 @@
 #!/bin/bash
 
 # Activate virtual environment for Git Bash (Windows)
-# activate the virtual environment
 source ./venv/Scripts/activate
 
-# Debugging: Check if the virtual environment is active
-# which python
-
-# navigate to the src directory where the test file is located
-cd src
-
 # run the test suite
-python -m pytest test_visualization.py
+python -m pytest src/test_visualization.py
 
 # collect exit code from pytest
 # exit code is 0 if all tests pass
