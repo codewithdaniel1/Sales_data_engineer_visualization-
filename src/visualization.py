@@ -5,7 +5,7 @@ from dash import dcc, html
 from dash.dependencies import Input, Output
 
 # Load the data
-df = pd.read_csv('daily_sales_data_all.csv')
+df = pd.read_csv('src/daily_sales_data_all.csv')
 
 # Define the function that updates the chart (made standalone)
 def update_chart(selected_region):
