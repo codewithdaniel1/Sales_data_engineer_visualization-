@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Activate virtual environment for Git Bash (Windows)
-source ./venv/Scripts/activate
+source venv/Scripts/activate
 
 # run the test suite
 python -m pytest src/test_visualization.py
