@@ -1,4 +1,4 @@
-# Pink Morsel Sales Data Visualization and Analysis
+# Sales Data Engineering and Visualization
 
 ## Introduction
 
