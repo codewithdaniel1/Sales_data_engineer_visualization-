@@ -36,12 +36,12 @@ This tool aims to simplify the process of analyzing and interpreting sales data,
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/codewithdaniel1/quantium_project.git
+    git clone https://github.com/codewithdaniel1/Sales_data_engineer_visualization.git
     ```
 
 2. Navigate into the project directory:
     ```bash
-    cd quantium_project
+    cd Sales_data_engineer_visualization
     ```
 
 3. Create and activate a virtual environment:
@@ -131,7 +131,7 @@ The script will:
 ```bash
 =========== test session starts ============
 platform win32 -- Python 3.9.13, pytest-7.1.2, pluggy-1.0.0
-rootdir: C:\Users\danie\OneDrive\Desktop\Quantium\quantium-starter-repo, configfile: pytest.ini
+rootdir: C:\Users\danie\OneDrive\Desktop\Quantium\Sales_data_engineer_visualization, configfile: pytest.ini
 plugins: anyio-3.5.0, dash-2.18.1
 collected 3 items
 
