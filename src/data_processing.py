@@ -7,19 +7,25 @@ def data_processing_func():
     csv_files = ['data/daily_sales_data_0.csv', 'data/daily_sales_data_1.csv', 'data/daily_sales_data_2.csv']
 
     # Empty DataFrame to hold the concatenated data
-    all_data = pd.DataFrame(columns=["product","price","quantity","date","region"])
+    all_data = pd.DataFrame(columns=["product", "price", "quantity", "date", "region", "sales"])
 
     # Loop through each CSV file
     for file in csv_files:
         # Read each CSV file into a DataFrame
         df = pd.read_csv(file)
 
-        # Filter for "PINK MORSELS" and calculate sales
-        pink_morsels = df[df['product'] == 'pink morsel'].copy()
-        pink_morsels['sales'] = pink_morsels['price'].str.replace('$', '').astype(float) * pink_morsels['quantity'].astype(float)
+        # Calculate sales: Remove '$' and convert 'price' to float
+        df['price'] = df['price'].str.replace('$', '').astype(float)
+        df['sales'] = df['price'] * df['quantity']
 
-        # Select only the necessary columns
-        pink_morsels = pink_morsels[['sales', 'date', 'region']]
+        # Filter only necessary columns
+        df = df[["product", "price", "quantity", "date", "region", "sales"]]
+
+        # Append to the combined DataFrame
+        all_data = pd.concat([all_data, df])
 
     # Write the final concatenated data to a new CSV file
-    pink_morsels.to_csv('daily_sales_data_all.csv', index=False)
+    all_data.to_csv('src/daily_sales_data_all.csv', index=False)
+
+# Call the data processing function
+data_processing_func()
