@@ -7,13 +7,14 @@ from dash.dependencies import Input, Output
 # Load the data
 df = pd.read_csv('src/daily_sales_data_all.csv')
 
-# Define the function that updates the chart (made standalone)
-def update_chart(selected_region):
-    # Filter the data based on the selected region
-    if selected_region == 'all':
-        filtered_df = df
-    else:
-        filtered_df = df[df['region'] == selected_region]
+# Define the function to update the chart
+def update_chart(selected_region, selected_product):
+    # Filter the data based on the selected region and product
+    filtered_df = df
+    if selected_region != 'all':
+        filtered_df = filtered_df[filtered_df['region'] == selected_region]
+    if selected_product != 'all':
+        filtered_df = filtered_df[filtered_df['product'] == selected_product]
 
     # Create the line chart
     fig = px.line(
@@ -21,7 +22,7 @@ def update_chart(selected_region):
         x="date", 
         y="sales", 
         color="region", 
-        title=f"Pink Morsel Sales Trend for {selected_region.capitalize()} Region" if selected_region != 'all' else "Pink Morsel Sales Trend for All Regions"
+        title=f"Sales Trend for {selected_product.capitalize()} in {selected_region.capitalize()} Region" if selected_region != 'all' and selected_product != 'all' else "Sales Trend"
     )
     # Customize the layout of the chart
     fig.update_layout(
@@ -39,14 +40,15 @@ def visualization_func():
     # Initialize the Dash app
     app = dash.Dash(__name__)
 
-    # Define regions for the radio button
+    # Define regions and products for the radio button
     regions = ['all', 'north', 'east', 'south', 'west']
+    products = ['all', 'pink morsel', 'gold morsel', 'magenta morsel', 'chartreuse morsel', 'periwinkle morsel', 'vermilion morsel', 'lapis morsel']
 
     # Layout of the Dash app with radio buttons and chart
     app.layout = html.Div(
         children=[
             html.H1(
-                children='Pink Morsel Sales Data Visualization',
+                children='Sales Data Visualization',
                 id='app-title',  # Added id for the header
                 style={'textAlign': 'center', 'color': '#1f77b4'}
             ),
@@ -61,6 +63,17 @@ def visualization_func():
                 style={'textAlign': 'center', 'margin': '20px'},
                 labelStyle={'display': 'inline-block', 'marginRight': '10px', 'fontSize': '18px'}
             ),
+            html.Div(
+                children="Filter sales data by product:",
+                style={'fontSize': '20px', 'marginTop': '30px', 'textAlign': 'center'}
+            ),
+            dcc.RadioItems(
+                id='product-filter',
+                options=[{'label': product.capitalize(), 'value': product} for product in products],
+                value='all',
+                style={'textAlign': 'center', 'margin': '30px'},
+                labelStyle={'display': 'inline-block', 'marginRight': '20px', 'fontSize': '18px'}
+            ),
             dcc.Graph(
                 id='sales-trend-chart'
             ),
@@ -68,13 +81,13 @@ def visualization_func():
         style={'textAlign': 'center', 'color': '#1f77b4'}
     )
 
-    # Define the callback to update the chart based on the region selected
+    # Define a single callback to update the chart based on both region and product selected
     @app.callback(
         Output('sales-trend-chart', 'figure'),
-        [Input('region-filter', 'value')]
+        [Input('region-filter', 'value'), Input('product-filter', 'value')]
     )
-    def update_chart_callback(selected_region):
-        return update_chart(selected_region)
+    def update_chart_callback(selected_region, selected_product):
+        return update_chart(selected_region, selected_product)
 
     # Run the app
     app.run_server(debug=True)
