@@ -1,27 +1,27 @@
-from contextvars import copy_context
-from dash._callback_context import context_value
-from dash._utils import AttributeDict
+from visualization import update_chart  # Import update_chart from visualization.py
 
-# Import the names of callback functions you want to test
-from visualization import update_chart
+# Test cases for different regions and products
+def test_update_chart_callback_all_all():
+    # Test with 'all' selected for both region and product
+    output = update_chart('all', 'all')
+    assert output.layout.title.text == "Sales Trend"
 
-def test_update_chart_callback_all():
-    # Test with 'all' selected
-    output = update_chart('all')
-    assert output.layout.title.text == "Pink Morsel Sales Trend for All Regions"
+def test_update_chart_callback_north_pink_morsel():
+    # Test with 'north' region and 'pink morsel' product selected
+    output = update_chart('north', 'pink morsel')
+    assert output.layout.title.text == "Sales Trend for Pink morsel in North Region"
 
-def test_update_chart_callback_north():
-    # Test with 'north' selected
-    output = update_chart('north')
-    assert output.layout.title.text == "Pink Morsel Sales Trend for North Region"
+def test_update_chart_callback_south_gold_morsel():
+    # Test with 'south' region and 'gold morsel' product selected
+    output = update_chart('south', 'gold morsel')
+    assert output.layout.title.text == "Sales Trend for Gold morsel in South Region"
 
-def test_region_picker_callback():
-    def run_callback():
-        # Simulate a selection of 'north' in the region picker
-        context_value.set(AttributeDict(**{"triggered_inputs": [{"prop_id": "region-filter.value"}]}))
-        return update_chart('north')
+def test_update_chart_callback_west_vermilion_morsel():
+    # Test with 'west' region and 'vermilion morsel' product selected
+    output = update_chart('west', 'vermilion morsel')
+    assert output.layout.title.text == "Sales Trend for Vermilion morsel in West Region"
 
-    # Use context to simulate Dash's callback context and test callback functionality
-    ctx = copy_context()
-    output = ctx.run(run_callback)
-    assert output.layout.title.text == "Pink Morsel Sales Trend for North Region"
+def test_update_chart_callback_east_chartreuse_morsel():
+    # Test with 'east' region and 'chartreuse morsel' product selected
+    output = update_chart('east', 'chartreuse morsel')
+    assert output.layout.title.text == "Sales Trend for Chartreuse morsel in East Region"
